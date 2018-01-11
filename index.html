@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="bootstrap/bootstrap.min.css">
+    <script src="bootstrap/jquery-3.2.1.js"></script>
+    <script src="bootstrap/vue.js"></script>
+    <script src="bootstrap/bootstrap.min.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <style>
+        #itany div{
+            width: 100px;
+            height:100px;
+            position:absolute;
+        }
+        #itany .left{
+            left:0;
+            top:0;
+            background: red;
+        }
+        #itany .right{
+            background: blue;
+            right:0;
+            top:0;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="itany">
+        <div class="left" v-hello></div>
+        <div class="right" v-hello></div>
+    </div>
+<!-- aa bb cc -->
+    <script type="text/javascript">
+        Vue.directive('hello',el => {
+            el.onmousedown=e => {
+                var disX=e.clientX-el.offsetLeft;
+                var disY=e.clientY-el.offsetTop;
+
+                document.onmousemove= e => {
+                    var l=e.clientX - disX;
+                    var t=e.clientY - disY;
+                    el.style.left=l + 'px';
+                    el.style.top=t + 'px'
+                }
+                document.onmouseup= e => {
+                    document.onmousemove=null;
+                    document.onmouseup=null;
+                }
+            }
+        })
+        new Vue({
+            el:'#itany',
+        })
+    </script>
+</body>
+</html>
+
